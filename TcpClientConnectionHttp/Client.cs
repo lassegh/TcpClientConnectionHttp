@@ -86,8 +86,10 @@ namespace TcpClientConnectionHttp
             return -1;
         }
 
-        public void HttpPostRequestAsync(Car car)
+        public async Task<string> HttpPostRequestAsync(Car car)
         {
+            string response;
+
             string body = JsonConvert.SerializeObject(car);
 
             using (TcpClient tcpClient = new TcpClient())
@@ -96,6 +98,7 @@ namespace TcpClientConnectionHttp
                 using (NetworkStream networkStream = tcpClient.GetStream())
                 {
                     using (StreamWriter streamWriter = new StreamWriter(networkStream))
+                    using (StreamReader sr = new StreamReader(networkStream))
                     {
                         // request line
                         streamWriter.Write("POST /api/cars/ HTTP/1.1\r\n");
@@ -103,15 +106,20 @@ namespace TcpClientConnectionHttp
                         // headers
                         streamWriter.Write("Host: lgwebservice.azurewebsites.net\r\n");
                         streamWriter.Write("Content-Type: application/json\r\n");
-                        streamWriter.Write("Content-Length: "+body.Length+"\r\n");
+                        streamWriter.Write("Content-Length: " + body.Length + "\r\n");
                         streamWriter.Write("\r\n");
 
                         // body
-                        streamWriter.Write(body+"\r\n");
+                        streamWriter.Write(body + "\r\n");
                         streamWriter.Flush();
+
+                        // HTTP Response ?
+                        response = sr.ReadLine();
                     }
                 }
             }
+
+            return response;
         }
     }
 }

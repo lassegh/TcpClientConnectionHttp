@@ -15,8 +15,7 @@ namespace TcpClientConnectionHttp
                 Vendor = "Audi",
                 Price = 800000
             };
-            client.HttpPostRequestAsync(car);
-            Thread.Sleep(10000);
+            Console.WriteLine(client.HttpPostRequestAsync(car).Result);
             Console.WriteLine(client.HttpGetAllRequestAsync().Result);
             Console.ReadKey();
         }
