@@ -114,7 +114,28 @@ namespace TcpClientConnectionHttp
                         streamWriter.Flush();
 
                         // HTTP Response ?
-                        response = sr.ReadLine();
+                        StringBuilder sb = new StringBuilder();
+
+                        sb.AppendLine(sr.ReadLine());
+                        sb.AppendLine(sr.ReadLine());
+                        sb.AppendLine(sr.ReadLine());
+                        sb.AppendLine(sr.ReadLine());
+                        sb.AppendLine(sr.ReadLine());
+                        sb.AppendLine(sr.ReadLine());
+                        sb.AppendLine(sr.ReadLine());
+                        sb.AppendLine(sr.ReadLine());
+                        sb.AppendLine(sr.ReadLine());
+                        sb.AppendLine(sr.ReadLine());
+                        sb.AppendLine(sr.ReadLine());
+                        sb.AppendLine(sr.ReadLine());
+
+
+
+
+
+
+
+                        response = sb.ToString();
                     }
                 }
             }
